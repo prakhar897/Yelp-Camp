@@ -1,0 +1,28 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "A Web application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prakhar897/Yelp-Camp.git"
+  },
+  "author": "prakhar897",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prakhar897/Yelp-Camp/issues"
+  },
+  "homepage": "https://github.com/prakhar897/Yelp-Camp#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "request": "^2.86.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  }
+}
