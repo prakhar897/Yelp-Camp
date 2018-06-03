@@ -1,33 +1,17 @@
+//All requires
 var express = 		require("express");
 var app = 			express();
 var request = 		require("request");
 var bodyparser = 	require("body-parser");
 var mongoose = 		require("mongoose");
+var camp = 			require("./models/camp");
+var seedDB = 		require("./seeds");
 
+//MISC Commands
 mongoose.connect("mongodb://localhost/yelpcamp");
-
-var campSchema = new mongoose.Schema({
-	name:String,
-	image:String,
-	description:String
-});
-
-var camp = mongoose.model("camp",campSchema);
-
-/*camp.create({
-	name:"Mahabaleshwar",
-	image:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg/1200px-Monasterio_Khor_Virap%2C_Armenia%2C_2016-10-01%2C_DD_25.jpg",
-	description:"Great place to go"
-},function(err,cam){
-	if(err)
-		console.log(err);
-	else
-		console.log(cam);
-});*/
-
-
 app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine","ejs");
+seedDB();
 
 
 app.get("/",function(req,res){
@@ -39,7 +23,7 @@ app.get("/campground",function(req,res){
 		if(err)
 		console.log(err);
 		else
-		res.render("index",{campground:camps});
+			res.render("index",{campground:camps});
 	});
 });
 
@@ -67,7 +51,7 @@ app.get("/campground/new",function(req,res){
 });
 
 app.get("/campground/:id",function(req,res){
-	camp.findById(req.params.id,function(err,camp){
+	camp.findById(req.params.id).populate("comments").exec(function(err,camp){
 		if(err)
 			console.log(err);
 		else
