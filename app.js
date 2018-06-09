@@ -7,6 +7,28 @@ var mongoose = 		require("mongoose");
 var camp = 			require("./models/camp");
 var comment = 		require("./models/comment");
 var seedDB = 		require("./seeds");
+var passport = 		require("passport");
+var localStrategy = require("passport-local");
+var User = 			require("./models/user");
+var expressSession =require("express-session");
+
+//Passport Configuration
+app.use(expressSession({
+	secret: "Big secret",
+	resave: false,
+	saveUninitialized:false 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use(function(req,res,next){
+	res.locals.currentUser = req.user;
+	next();
+});
+
+
 
 //MISC Commands
 mongoose.connect("mongodb://localhost/yelpcamp");
@@ -68,7 +90,7 @@ app.get("/campground/:id",function(req,res){
 
 // });
 
-app.get("/campground/:id/comments/new",function(req,res){
+app.get("/campground/:id/comments/new",isLoggedIn,function(req,res){
 	camp.findById(req.params.id,function(err,camp){
 		if(err)
 			console.log(err);
@@ -77,7 +99,7 @@ app.get("/campground/:id/comments/new",function(req,res){
 	});
 });
 
-app.post("/campground/:id/comments",function(req,res){
+app.post("/campground/:id/comments",isLoggedIn,function(req,res){
 	camp.findById(req.params.id,function(err,camp){
 		if(err)
 			console.log(err);
@@ -96,7 +118,49 @@ app.post("/campground/:id/comments",function(req,res){
 });
 
 
+//Auth Routes
+app.get("/signup",function(req,res){
+	res.render("signup");
+});
+
+app.post("/signup",function(req,res){
+	var newUser = new User({username:req.body.username});
+	User.register(newUser,req.body.password,function(err,user){
+		if(err)
+			console.log(err);
+		else
+		passport.authenticate("local")(req,res,function(){
+			res.redirect("/campground"); 
+		});
+	});
+});
+
+app.get("/login",function(req,res){
+	res.render("login");
+});
+
+app.post("/login",passport.authenticate("local",{
+	successRedirect:"/campground",
+	failureRedirect:"/login"
+}),function(req,res){
+});
+
+app.get("/logout",function(req,res){
+	req.logout();
+	res.redirect("/");
+});
+
+
 app.listen(3000,function(req,res){
 	console.log("Listening on port 3000");
 });
+
+
+function isLoggedIn(req,res,next){
+	if(req.isAuthenticated()){
+		return next();
+	}
+	res.redirect("/login");
+}
+
 

@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var camp = require("./models/camp");
 var comment = require("./models/comment");
+var user = require("./models/user");
 
 var data = [
 	{
@@ -16,6 +17,7 @@ var data = [
 ];
 
 function seedDB(){
+	user.remove({},function(req,res){});
 	comment.remove({},function(err){
 		if(err)
 			console.log(err);
