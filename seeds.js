@@ -24,30 +24,30 @@ function seedDB(){
 		else
 		{
 			camp.remove({},function(err){
-				if(err)
-					console.log(err);
-				else
-				{
-					data.forEach(function(seed){
-						camp.create(seed,function(err,campground){
-							if(err)
-								console.log(err);
-							else
-							{
-								comment.create({
-									content: "I wish i could go there too",
-									author:"Taki"
-								},function(err,comment){
-									if(err)
-										console.log(err);
-									else
-										campground.comments.push(comment);
-										campground.save();
-								});
-							}
-						});
-					});
-				}
+				// if(err)
+				// 	console.log(err);
+				// else
+				// {
+				// 	data.forEach(function(seed){
+				// 		camp.create(seed,function(err,campground){
+				// 			if(err)
+				// 				console.log(err);
+				// 			else
+				// 			{
+				// 				comment.create({
+				// 					content: "I wish i could go there too",
+				// 					author:"Taki"
+				// 				},function(err,comment){
+				// 					if(err)
+				// 						console.log(err);
+				// 					else
+				// 						campground.comments.push(comment);
+				// 						campground.save();
+				// 				});
+				// 			}
+				// 		});
+				// 	});
+				// }
 			});
 		}
 	});

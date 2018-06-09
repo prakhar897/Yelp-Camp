@@ -18,6 +18,9 @@
 						<p class="card-text">
 							<%= campground.description%>
 						</p>
+						<p class="card-text">
+							Created by - <%= campground.author.username%>
+						</p>
 						<a class="card-link btn btn-primary" href="/campground/<%= campground._id%>/comments/new">
 							Add New Comment
 						</a>
@@ -29,7 +32,7 @@
 						<div class="card-body">
 							<p>
 								<strong>
-									<%=comment.author%>
+									<%=comment.author.username%>
 								</strong> 
 								- <%=comment.content%>
 							</p>
