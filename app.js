@@ -1,22 +1,28 @@
 //All requires
-var express = 		require("express");
-var app = 			express();
-var request = 		require("request");
-var bodyparser = 	require("body-parser");
-var mongoose = 		require("mongoose");
-var camp = 			require("./models/camp");
-var comment = 		require("./models/comment");
-var seedDB = 		require("./seeds");
-var passport = 		require("passport");
-var methodOverride =require("method-override");
-var localStrategy = require("passport-local");
-var User = 			require("./models/user");
-var expressSession =require("express-session");
-var indexRoutes = 	require("./routes/index");
-var commentRoutes = 	require("./routes/comments");
-var campgroundRoutes = 	require("./routes/campgrounds");
+var express = 			require("express"),
+	app = 				express(),
+	request = 			require("request"),
+	bodyparser = 		require("body-parser"),
+	mongoose = 			require("mongoose"),
+	passport = 			require("passport"),
+	methodOverride =	require("method-override"),
+	localStrategy = 	require("passport-local"),
+	expressSession =	require("express-session"),
+	flash = 			require("connect-flash"),
+
+	camp = 				require("./models/camp"),
+	comment = 			require("./models/comment"),
+	User = 				require("./models/user"),
+
+	seedDB = 			require("./seeds"),
+	
+	indexRoutes = 		require("./routes/index"),
+	commentRoutes = 	require("./routes/comments"),
+	campgroundRoutes = 	require("./routes/campgrounds")
+
 
 //Passport Configuration
+app.use(flash());
 app.use(expressSession({
 	secret: "Big secret",
 	resave: false,
@@ -35,10 +41,10 @@ app.set("view engine","ejs");
 app.use(express.static(__dirname+ "/public"));
 app.use(methodOverride("_method"));
 //seedDB();
-
-//routing
 app.use(function(req,res,next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 });
 

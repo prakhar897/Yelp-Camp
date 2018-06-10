@@ -14,8 +14,10 @@ router.get("/signup",function(req,res){
 router.post("/signup",function(req,res){
 	var newUser = new User({username:req.body.username});
 	User.register(newUser,req.body.password,function(err,user){
-		if(err)
-			console.log(err);
+		if(err){
+			req.flash("error",err.message);
+			res.redirect("back");
+		}
 		else
 		passport.authenticate("local")(req,res,function(){
 			res.redirect("/campground"); 
@@ -35,14 +37,8 @@ router.post("/login",passport.authenticate("local",{
 
 router.get("/logout",function(req,res){
 	req.logout();
+	req.flash("success","Successfully Logged Out.")
 	res.redirect("/");
 });
-
-function isLoggedIn(req,res,next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = router;

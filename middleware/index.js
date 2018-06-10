@@ -7,20 +7,29 @@ middlewareObj.isLoggedIn = function (req,res,next){
 	if(req.isAuthenticated()){
 		return next();
 	}
+	req.flash("error","You are not logged in!!!");
 	res.redirect("/login");
 }
 
 middlewareObj.checkCampOwner = function (req,res,next){
 	if(req.isAuthenticated()){
 		camp.findById(req.params.id,function(err,campground){
-			if(campground.author.id.equals(req.user._id))
-				next();
-			else
-				res.redirect("back");
+			if(err)
+				console.log(err);
+			else{
+				if(campground.author.id.equals(req.user._id))
+					next();
+				else{
+					req.flash("error","You Dont have permission to do that");
+					res.redirect("back");
+				}	
+			}
 		});
 	}
-	else
+	else{
+		req.flash("error","You are not logged in!!!");
 		res.redirect("back");
+	}	
 }
 
 middlewareObj.checkCommentOwner = function (req,res,next){
@@ -29,8 +38,10 @@ middlewareObj.checkCommentOwner = function (req,res,next){
 			if(foundComment.author.id.equals(req.user._id)){
 				next();
 			}
-			else
+			else{
+				req,flash("error","Permission Denied");
 				res.redirect("back");
+			}
 		});
 	}
 	else
