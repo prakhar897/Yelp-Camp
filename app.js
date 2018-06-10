@@ -8,6 +8,7 @@ var camp = 			require("./models/camp");
 var comment = 		require("./models/comment");
 var seedDB = 		require("./seeds");
 var passport = 		require("passport");
+var methodOverride =require("method-override");
 var localStrategy = require("passport-local");
 var User = 			require("./models/user");
 var expressSession =require("express-session");
@@ -32,7 +33,8 @@ mongoose.connect("mongodb://localhost/yelpcamp");
 app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static(__dirname+ "/public"));
-seedDB();
+app.use(methodOverride("_method"));
+//seedDB();
 
 //routing
 app.use(function(req,res,next){
