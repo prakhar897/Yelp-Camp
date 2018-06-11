@@ -35,7 +35,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //MISC Commands
-mongoose.connect("mongodb://localhost/yelpcamp");
+var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp"
+mongoose.connect(url);
+
 app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static(__dirname+ "/public"));

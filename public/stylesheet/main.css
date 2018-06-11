@@ -2,3 +2,30 @@
 	width:30%;
 	margin:0 auto;
 }
+
+.navbar-custom {
+    background-color: #191919;
+    margin-bottom: 3%;
+    border-bottom-left-radius: 2%;
+    border-bottom-right-radius: 2%;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand{
+    color: rgba(255,255,255,.8);
+    font-size: 1.7rem;
+}
+
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+.del-btn{
+	display: inline;
+}

@@ -25,11 +25,11 @@
 							Add New Comment
 						</a>
 						<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
-						<a class="card-link btn btn-warning" href="/campground/<%= campground._id%>/edit">
+						<a class="card-link btn btn-sm btn-warning" href="/campground/<%= campground._id%>/edit">
 							Edit
 						</a>
-						<form action="/campground/<%=campground._id%>/?_method=DELETE" method="POST">
-							<button class="card-link btn btn-danger" href="/campground/<%= campground._id%>">
+						<form action="/campground/<%=campground._id%>/?_method=DELETE" method="POST" class="del-btn">
+							<button class="card-link btn btn-sm btn-danger" href="/campground/<%= campground._id%>">
 								Delete
 							</button>
 						</form>
@@ -37,21 +37,21 @@
 					</div>
 				</div>
 					
-				<div class="card bg-secondary">
+				<div class="card">
 					<% campground.comments.forEach(function(comment){ %>
 						<div class="card-body">
+							<h5>
+								<%=comment.author.username%>
+							</h5>
 							<p>
-								<strong>
-									<%=comment.author.username%>
-								</strong> 
-								- <%=comment.content%>
+								<%=comment.content%>
 							</p>
 							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-								<a class="card-link btn btn-warning" href="/campground/<%= campground._id%>/comments/<%=comment._id%>/edit">
+								<a class="card-link btn btn-sm btn-outline-warning" href="/campground/<%= campground._id%>/comments/<%=comment._id%>/edit">
 									Edit
 								</a>
-								<form action="/campground/<%=campground._id%>/comments/<%=comment._id%>/?_method=DELETE" method="POST">
-									<button class="card-link btn btn-danger" href="/campground/<%= campground._id%>">
+								<form action="/campground/<%=campground._id%>/comments/<%=comment._id%>/?_method=DELETE" method="POST" class="del-btn">
+									<button class="card-link btn btn-sm btn-outline-danger" href="/campground/<%= campground._id%>">
 										Delete
 									</button>
 								</form>
