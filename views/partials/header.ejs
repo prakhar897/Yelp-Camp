@@ -1,51 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>YelpCamp</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="/stylesheet/main.css" >
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
-<body>
+  <head>
+    <title>YelpCamp</title>
+      <!-- Bootstrap core CSS -->
+      <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-		<nav class="navbar navbar-expand-lg navbar-custom">
-			<a class="navbar-brand" href="/">YelpCamp</a>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav ml-auto">
-					<% if(!currentUser){ %>
-					<li class="nav-item">
-        				<a class="nav-link" href="/login">LogIn</a>
-      				</li>
-      				<li class="nav-item">
-        				<a class="nav-link" href="/signup">SignUp</a>
-      				</li>
-      				<% } else {%>
-      				<li class="nav-item">
-        				<a class="nav-link" href="#">Signed In As <%= currentUser.username%></a>
-      				</li>
-      				<li class="nav-item">
-        				<a class="nav-link" href="/logout">LogOut</a>
-      				</li>
-      				<% } %>
-				</ul>
-			</div>
-		</nav>
+      <!-- Custom fonts for this template -->
+      <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+      <!-- Custom styles for this template -->
+      <link href="/stylesheet/grayscale.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="/stylesheet/main.css" >
+  </head>
+  <body>
+
+		<!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/">YELP CAMP</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <% if(!currentUser){ %>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/signup">Signup</a>
+              </li>
+            <% } else {%>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#">Signed In as <%= currentUser.username%></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <div class="container">
       <% if(error && error.length>0){ %>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger down-nav">
           <%=error%>
         </div>
       <% } %>
       <% if(success && success.length>0){ %>
-        <div class="alert alert-success">
+        <div class="alert alert-success down-nav">
          <%=success%>
         </div>
       <% } %>
     </div>
-			
 
 
 

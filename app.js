@@ -35,7 +35,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //MISC Commands
-var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp"
+//var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
+var url = "mongodb://localhost/yelpcamp";
 mongoose.connect(url);
 
 app.use(bodyparser.urlencoded({extended:true}));
@@ -54,10 +55,12 @@ app.use("/",indexRoutes);
 app.use("/campground/:id/comments",commentRoutes);
 app.use("/campground",campgroundRoutes);
 
-app.listen(process.env.PORT,process.env.IP,function(req,res){
+/*app.listen(process.env.PORT,process.env.IP,function(req,res){
+	console.log("Listening on port 3000");
+});*/
+
+app.listen(3000,function(req,res){
 	console.log("Listening on port 3000");
 });
-
-
 
 
